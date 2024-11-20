@@ -1,4 +1,4 @@
-const { table } = require("../dbConfig");
+// const { table } = require("../dbConfig");
 
 /**
  * @param { import("knex").Knex } knex
@@ -8,16 +8,16 @@ exports.up = async function (knex) {
   await knex.schema
     .createTable("projects", (table) => {
       table.increments("project_id");
-      table.string("project_name", 200).notNullable().unique();
-      table.string("project_description");
-      table.boolean("project_completed").defaultTo(0);
+      table.string("project_name", 200).notNullable();
+      table.string("project_description", 255);
+      table.boolean("project_completed").defaultTo(false);
     })
     .createTable("resources", (table) => {
       table.increments("resource_id");
       table.string("resource_name", 200).notNullable().unique();
       table.string("resource_description");
     })
-    .createTable("task", (table) => {
+    .createTable("tasks", (table) => {
       table.increments("task_id");
       table.string("task_description").notNullable();
       table.string("task_notes");
@@ -56,8 +56,8 @@ exports.up = async function (knex) {
  */
 exports.down = async function (knex) {
   await knex.schema
-    .dropTableIfExists("resource_assignment")
-    .dropTableIfExists("task")
-    .dropTableIfExists("resource")
-    .dropTableIfExists("project");
+    .dropTableIfExists("project_resources")
+    .dropTableIfExists("tasks")
+    .dropTableIfExists("resources")
+    .dropTableIfExists("projects");
 };

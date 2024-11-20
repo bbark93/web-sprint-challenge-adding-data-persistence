@@ -1,6 +1,10 @@
 // build your `Project` model here
-function getProjects() {
-    return Promise.resolve('awesome project')
+const db = require('../../data/dbConfig.js')
+
+async function getProjects() {
+    const projectRows = await db('projects as p')
+
+    return projectRows
 }
 
 module.exports = { getProjects }
