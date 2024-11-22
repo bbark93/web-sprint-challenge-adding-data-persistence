@@ -10,7 +10,7 @@ exports.up = async function (knex) {
       table.increments("project_id");
       table.string("project_name", 200).notNullable();
       table.string("project_description", 255);
-      table.boolean("project_completed").defaultTo(false);
+      table.boolean("project_completed").defaultTo(0);
     })
     .createTable("resources", (table) => {
       table.increments("resource_id");
