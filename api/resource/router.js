@@ -20,10 +20,6 @@ router.post("/", (req, res, next) => {
     .catch(next);
 });
 
-router.use("*", (req, res) => {
-  res.json({ api: "up" });
-});
-
 router.use((err, req, res, next) => {
   res.status(500).json({
     customMessage: "something went wrong inside the resource router",
