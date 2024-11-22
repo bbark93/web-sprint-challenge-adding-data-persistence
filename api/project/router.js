@@ -9,8 +9,6 @@ router.get('/', (req, res, next) => {
         projects.map( p => {
           if (p.project_completed == 0) projects[num].project_completed = false;
           if (p.project_completed == 1) projects[num].project_completed = true;
-          // console.log('p.project_completed: ',p.project_completed);
-          // console.log(`projects[${num}].project_completed: `,projects[num].project_completed);
           num++;
         } )
         res.json(projects)
@@ -19,6 +17,17 @@ router.get('/', (req, res, next) => {
   })
 
 // router.post('/', (req, res, next))
+router.post('/', (req, res, next) => {
+  const newProject = req.body
+
+  Project.addProjects(newProject)
+    .then(project => {
+      if (project.project_completed == 0) project.project_completed = false;
+      if (project.project_completed == 1) project.project_completed = true;
+      res.status(201).json(project)
+    })
+    .catch(next)
+})
 
 router.use('*', (req, res) => {
     res.json({ api: 'up' })
