@@ -2,13 +2,12 @@
 const db = require("../../data/dbConfig.js");
 
 async function getTasks() {
-  const taskRows = await db("tasks as t")
-    .leftJoin("projects as p", "p.project_name", "p.project_description")
-    // .select()
-    // .where("p.project_id")
-
-  return taskRows;
-}
+    const taskRows = await db("tasks as t")
+      .leftJoin("projects as p", "t.project_id", "p.project_id")
+      .select("t.*", "p.project_name", "p.project_description"); 
+    
+    return taskRows;
+  }
 
 module.exports = {
   getTasks,
